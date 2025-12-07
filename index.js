@@ -27,13 +27,23 @@ const server = http.createServer((req, res) => {
             console.log('Body:', body);
             console.log('=========================');
 
-            // Trả về response thành công
+            // Trả về response thành công với nhiều field để cover các trường hợp check
             res.statusCode = 200;
             res.end(JSON.stringify({
                 success: true,
+                login: true,
+                valid: true,
+                error: false,
+                isError: false,
                 message: "License valid",
                 status: "active",
-                result: "OK"
+                result: "OK",
+                code: 200,
+                data: {
+                    success: true,
+                    login: true,
+                    valid: true
+                }
             }));
         });
         return;
