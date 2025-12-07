@@ -1,5 +1,5 @@
 const http = require('http');
-const PORT = process.env.PORT || 8888;
+const PORT = process.env.PORT || 5012;
 
 const server = http.createServer((req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -15,12 +15,27 @@ const server = http.createServer((req, res) => {
 
     // POST /project/login - App gửi request này, trả về SUCCESS
     if (req.method === 'POST' && req.url === '/project/login') {
-        res.statusCode = 200;
-        res.end(JSON.stringify({
-            success: true,
-            message: "License valid",
-            status: "active"
-        }));
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        req.on('end', () => {
+            console.log('=== NHẬN ĐƯỢC REQUEST ===');
+            console.log('Method:', req.method);
+            console.log('URL:', req.url);
+            console.log('Headers:', JSON.stringify(req.headers, null, 2));
+            console.log('Body:', body);
+            console.log('=========================');
+
+            // Trả về response thành công
+            res.statusCode = 200;
+            res.end(JSON.stringify({
+                success: true,
+                message: "License valid",
+                status: "active",
+                result: "OK"
+            }));
+        });
         return;
     }
 
