@@ -39,24 +39,56 @@ const server = http.createServer((req, res) => {
             console.log('HWID nhận được:', data.hwid || 'không có');
 
             // LUÔN TRẢ VỀ SUCCESS - Bypass key check hoàn toàn
-            res.statusCode = 200;
-            res.end(JSON.stringify({
+            const response = {
+                // Boolean values
                 login: true,
                 success: true,
-                status: "OK",
-                result: "success",
                 error: false,
                 valid: true,
-                message: "Login successful",
-                code: 200,
-                // Thêm các field có thể app cần
                 verified: true,
                 authorized: true,
                 active: true,
                 expired: false,
+
+                // String values (một số app check kiểu string)
+                Login: "true",
+                Success: "true",
+                Error: "false",
+                Valid: "true",
+
+                // Status codes
+                status: "OK",
+                Status: "OK",
+                result: "success",
+                Result: "success",
+                message: "Login successful",
+                Message: "Login successful",
+                code: 200,
+                Code: 200,
+                statusCode: 200,
+
+                // User data
                 hwid: data.hwid || "",
-                key: data.key || ""
-            }));
+                key: data.key || "",
+
+                // Thêm các field phổ biến khác
+                data: {
+                    login: true,
+                    success: true,
+                    valid: true
+                },
+                response: "success",
+                isValid: true,
+                isSuccess: true,
+                isLogin: true
+            };
+
+            console.log('=== TRẢ VỀ RESPONSE ===');
+            console.log(JSON.stringify(response, null, 2));
+            console.log('========================');
+
+            res.statusCode = 200;
+            res.end(JSON.stringify(response));
         });
         return;
     }
