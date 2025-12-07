@@ -27,23 +27,35 @@ const server = http.createServer((req, res) => {
             console.log('Body:', body);
             console.log('=========================');
 
-            // Trả về response thành công với nhiều field để cover các trường hợp check
+            // Parse body để lấy thông tin (không cần check đúng sai)
+            let data = {};
+            try {
+                data = JSON.parse(body);
+            } catch (e) {
+                // Nếu không parse được, bỏ qua
+            }
+
+            console.log('Key nhận được:', data.key || 'không có');
+            console.log('HWID nhận được:', data.hwid || 'không có');
+
+            // LUÔN TRẢ VỀ SUCCESS - Bypass key check hoàn toàn
             res.statusCode = 200;
             res.end(JSON.stringify({
-                success: true,
                 login: true,
-                valid: true,
+                success: true,
+                status: "OK",
+                result: "success",
                 error: false,
-                isError: false,
-                message: "License valid",
-                status: "active",
-                result: "OK",
+                valid: true,
+                message: "Login successful",
                 code: 200,
-                data: {
-                    success: true,
-                    login: true,
-                    valid: true
-                }
+                // Thêm các field có thể app cần
+                verified: true,
+                authorized: true,
+                active: true,
+                expired: false,
+                hwid: data.hwid || "",
+                key: data.key || ""
             }));
         });
         return;
