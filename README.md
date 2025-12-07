@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # HƯỚNG DẪN DEPLOY SERVER
 
 ## 📁 Files cần upload:
@@ -89,4 +90,6 @@ Sau khi deploy, mở URL trong browser. Kết quả đúng:
 ```json
 {"message":"Cannot GET /project/login","error":"Not Found","statusCode":404}
 ```
+=======
+>>>>>>> c5c0c8fb6aaf9c477ae90491ae86ba4e828970d3
 # sever-key
